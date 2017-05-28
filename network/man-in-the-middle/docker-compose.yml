@@ -1,0 +1,34 @@
+version: '3'
+services:
+  comp-a:
+    build:
+      context: .
+      dockerfile: Dockerfile-victim
+    command: python3 -m http.server
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.10
+  middle:
+    build:
+      context: .
+      dockerfile: Dockerfile-attacker
+    command: sleep infinity
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.11
+  comp-b:
+    build:
+      context: .
+      dockerfile: Dockerfile-victim
+    command: sleep infinity
+    networks:
+      app_net:
+        ipv4_address: 172.16.238.12
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
